@@ -3,10 +3,10 @@ services:
     web:
         image: nginx:latest
         volumes:
-            - /srv/lesitedecuisine.fr/data/certbot/etc:/etc/letsencrypt:z,ro
-            - /srv/lesitedecuisine.fr/data/nginx:/etc/nginx:z,ro
-            - /srv/lesitedecuisine.fr/data/vhosts:/var/www/vhosts:z,ro
-            - /srv/lesitedecuisine.fr/data/logs/nginx:/var/log/nginx:z
+            - ./data/certbot/etc:/etc/letsencrypt:z,ro
+            - ./data/nginx:/etc/nginx:z,ro
+            - ./data/vhosts:/var/www/vhosts:z,ro
+            - ./data/logs/nginx:/var/log/nginx:z
         links:
             - db
             - php
@@ -19,15 +19,15 @@ services:
         build:
             context: php
         volumes:
-            - /srv/lesitedecuisine.fr/data/vhosts:/var/www/vhosts:z
-            - /srv/lesitedecuisine.fr/data/logs/php:/var/log/php:z
+            - ./data/vhosts:/var/www/vhosts:z
+            - ./data/logs/php:/var/log/php:z
         restart: always
 
     db:
         image: mysql:latest
         volumes:
-            - /srv/lesitedecuisine.fr/data/mysql:/var/lib/mysql:z
-            - /srv/lesitedecuisine.fr/data/logs/mysql:/var/log/mysql:z
+            - ./data/mysql:/var/lib/mysql:z
+            - ./data/logs/mysql:/var/log/mysql:z
         ports:
             - "127.0.0.1:3306:3306"
         restart: always
