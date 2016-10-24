@@ -1,14 +1,13 @@
 version: '2'
 services:
     web:
-        image: nginx:latest
+        image: nginx:stable-alpine
         volumes:
             - ./data/certbot/etc:/etc/letsencrypt:z,ro
             - ./data/nginx:/etc/nginx:z,ro
             - ./data/vhosts:/var/www/vhosts:z,ro
             - ./data/logs/nginx:/var/log/nginx:z
         links:
-            - db
             - php
         ports:
             - "80:80"
@@ -21,6 +20,8 @@ services:
         volumes:
             - ./data/vhosts:/var/www/vhosts:z
             - ./data/logs/php:/var/log/php:z
+        links:
+            - db
         restart: always
 
     db:
